@@ -1,0 +1,12 @@
+{
+  "name": "information-site",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:mekbibDev/informattion-stie.git",
+  "author": "mekbibDev <mekbibtare@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

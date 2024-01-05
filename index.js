@@ -1,24 +1,19 @@
-const http = require("node:http");
-const fs = require("node:fs/promises");
-const hostname = "localhost";
+const express = require("express");
+const app = express();
 const port = 8080;
-const server = http.createServer(async (req, res) => {
-  const path = req.url === "/" ? "./index.html" : `.${req.url}.html`;
-  if (path !== "/favicon.ico") {
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/html");
 
-    let html;
-    try {
-      html = await fs.readFile(path);
-    } catch (error) {
-      html = await fs.readFile("./404.html");
-    }
-    res.write(html);
-  }
-  res.end();
+app.get("/", (req, res) => {
+  res.sendFile("index.html", { root: "./" });
 });
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.get("/contact-me", (req, res) => {
+  res.sendFile("contact-me.html", { root: "./" });
+});
+app.get("/about", (req, res) => {
+  res.sendFile("about.html", { root: "./" });
+});
+app.use((req, res, next) => {
+  res.status(404).sendFile("404.html", { root: "./" });
+});
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
